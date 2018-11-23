@@ -6,7 +6,7 @@ android {
     buildToolsVersion "28.0.3"
 
     defaultConfig {
-        applicationId "fr.android.androidexercises"
+        applicationId "fr.imt.android.nguegan"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -28,10 +28,7 @@ dependencies {
             "com.android.support:design:$support_version",
             "com.android.support.constraint:constraint-layout:$constraint_layout_version",
             "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version")
-
-    // TODO add Retrofit
-
-    // TODO add GSon converter for Retrofit
-
-    // TODO add Timber
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }
