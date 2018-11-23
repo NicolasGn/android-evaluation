@@ -1,3 +1,3 @@
-# Android exercises and code examples
+# Android Evaluation - Nicolas Guégan
 
-> Technical support for Android course given at Mines Nantes
+> The final exercice of our android course at IMT Atlantique.
