@@ -1,3 +1,3 @@
 # Android Evaluation - Nicolas Guégan
 
-> The final exercice of our android course at IMT Atlantique.
+> The final exercise of our android course at IMT Atlantique.
