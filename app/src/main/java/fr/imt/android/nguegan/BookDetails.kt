@@ -10,9 +10,6 @@ import android.widget.TextView
 
 class BookDetails : Fragment() {
 
-    private var book: Book? = null
-    private var titleView: TextView? = null
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.book_details, container, false)
@@ -22,10 +19,6 @@ class BookDetails : Fragment() {
             titleView?.text = title
         }
         return view
-    }
-
-    fun setBook(book: Book) {
-
     }
 
 }

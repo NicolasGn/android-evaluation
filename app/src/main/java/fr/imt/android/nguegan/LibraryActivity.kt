@@ -1,7 +1,12 @@
 package fr.imt.android.nguegan
 
+import android.app.Activity
+import android.content.res.Configuration
+import android.net.LinkAddress
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.FrameLayout
+import android.widget.LinearLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,6 +21,7 @@ class LibraryActivity : AppCompatActivity(), BookList.OnBookSelectedListener {
         const val BOOKS_KEY = "books"
     }
 
+    private var isLandscape: Boolean = false
     private var books: Array<Book>? = null
     private var selectedBook: Book? = null
 
@@ -29,16 +35,31 @@ class LibraryActivity : AppCompatActivity(), BookList.OnBookSelectedListener {
 
         selectedBook = book
 
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.mainContainer, bookDetails)
+        if (isLandscape) {
+            supportFragmentManager.beginTransaction()
+                .replace(if (isLandscape) R.id.sideContainer else R.id.mainContainer , bookDetails)
+                .commit()
+        } else {
+            supportFragmentManager.beginTransaction()
+                .replace(if (isLandscape) R.id.sideContainer else R.id.mainContainer , bookDetails)
                 .addToBackStack(BookDetails::class.java.name)
                 .commit()
+        }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_library)
         Timber.plant(Timber.DebugTree())
+
+        isLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+
+        val mainLayout = findViewById<LinearLayout>(R.id.mainLayout)
+        mainLayout.orientation = if (isLandscape) LinearLayout.HORIZONTAL else LinearLayout.VERTICAL
+
+        val sideContainer = findViewById<FrameLayout>(R.id.sideContainer)
+        sideContainer.visibility = if (isLandscape) FrameLayout.VISIBLE else FrameLayout.GONE
 
         if (books == null) {
             val retrofit = Retrofit.Builder()
@@ -82,19 +103,19 @@ class LibraryActivity : AppCompatActivity(), BookList.OnBookSelectedListener {
     }
 
     public override fun onSaveInstanceState(outState: Bundle) {
-        outState?.putParcelableArray(BOOKS_KEY, books)
-        outState?.putParcelable(SELECTED_BOOK_KEY, selectedBook)
+        outState.putParcelableArray(BOOKS_KEY, books)
+        outState.putParcelable(SELECTED_BOOK_KEY, selectedBook)
         super.onSaveInstanceState(outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        books = savedInstanceState?.getParcelableArray(BOOKS_KEY) as Array<Book>
-        selectedBook = savedInstanceState?.getParcelable(SELECTED_BOOK_KEY)
+        books = savedInstanceState.getParcelableArray(BOOKS_KEY) as Array<Book>
+        selectedBook = savedInstanceState.getParcelable(SELECTED_BOOK_KEY)
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        selectedBook = null
+        if (!isLandscape) selectedBook = null
     }
 }
