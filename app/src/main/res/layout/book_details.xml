@@ -6,30 +6,42 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/book_details" />
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_marginTop="4pt"
-        android:layout_width="207dp"
-        android:layout_height="175dp"
-        android:src="@drawable/ic_launcher"
-        tools:ignore="ContentDescription" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <TextView
-        android:layout_marginTop="4pt"
-        android:id="@+id/bookDetailsTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Henry Pottier " />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/book_details" />
 
-    <TextView
-        android:layout_marginTop="10pt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:singleLine="false"
-        android:text="@string/book_description" />
+            <ImageView
+                android:layout_width="207dp"
+                android:layout_height="175dp"
+                android:layout_marginTop="4pt"
+                android:src="@drawable/ic_launcher"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/bookDetailsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4pt"
+                android:text="Henry Pottier " />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10pt"
+                android:singleLine="false"
+                android:text="@string/book_description" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

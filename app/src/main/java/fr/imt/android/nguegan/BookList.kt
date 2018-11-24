@@ -40,34 +40,14 @@ class BookList : Fragment() {
 
         viewManager = LinearLayoutManager(view.context)
 
-        val retrofit = Retrofit.Builder()
-                .baseUrl("http://henri-potier.xebia.fr/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+        val books = arguments?.getParcelableArray("books")?.toList() as List<Book>
+        viewAdapter = BookAdapter(books, OnBookClickListener(listener))
 
-        val api = retrofit.create(HenriPotierService::class.java)
-
-        api.listBooks().enqueue(object : Callback<Array<Book>> {
-            override fun onFailure(call: Call<Array<Book>>, t: Throwable) {
-                Timber.e("Error fetching books !")
-            }
-
-            override fun onResponse(call: Call<Array<Book>>, response: Response<Array<Book>>) {
-                var books = ArrayList<Book>()
-                response.body()?.forEach {
-                    Timber.i(it.title)
-                    books.add(it)
-                }
-
-                viewAdapter = BookAdapter(books, OnBookClickListener(listener))
-
-                view.apply {
-                    setHasFixedSize(true)
-                    layoutManager = viewManager
-                    adapter = viewAdapter
-                }
-            }
-        })
+        view.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
 
         return view
     }
